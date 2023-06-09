@@ -1,24 +1,48 @@
 ## set vidly_jwtPrivateKey = default value in Development env
-## /api/me get the current user 
 
-## Endpoints: Routes 
-    - we have make a new module called with the resource 
-    like genres.js and then load 
+## /api/me get the current user
+
+## Integration Test
+
+    - config database file and set environment variables.
+    - make folder integration dir inside tests.
+    - you have to export app.listen() => server
+    - .test.js -> beforeEach(()=>{
+        load server or instantiate
+    });
+        - afterEach(()=>{
+            server.close();
+        })
+    - inside test file make suit describe(()=>{
+        it(should return .... , ()=>{
+            write your test here.....
+        });
+    });
+
+## Endpoints: Routes
+
+    - we have make a new module called with the resource
+    like genres.js and then load
     const route = express.Route()
 
     GET POST PUT DELETE
-    /api/users    
+    /api/users
     /api/genres (secured)
     /api/customers (secured)
     /api/movies (secured)
     /api/rentals (secured)
 
 ## Authentication:
-    - is the process of identifying if the user who they claim you are (when we loggin) 
-    - we have 
+
+    - is the process of identifying if the user who they claim you are (when we loggin)
+    - we have
+
 ## Authorization:
+
     - is determine if the user has the right permission to perform the given opertations
+
 ## JSON Web Token:
+
     - is a long string that identify the user as meta for is think of it like driver licesne or passport
 
 GET customers/ done
@@ -28,20 +52,23 @@ PUT customers/:id done
 DELETE customers/:id done
 
 ## Genre Model
-    name 
+
+    name
 
 ## Movie Model
+
     title
     dailyRentalRate
     numberInStock
     genre
 
-## Rental Model 
+## Rental Model
+
     movie
-        title 
+        title
         dailyRentalRate
     customer
-        name 
+        name
         phone
         isGold
     dateOut
@@ -49,11 +76,13 @@ DELETE customers/:id done
     dateReturned
 
 ## Customer Model
+
     name
     phone
     isGold
     dateJoined
 
 ## User Model
+
     customer
     isAdmin

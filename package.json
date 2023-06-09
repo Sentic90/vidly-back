@@ -4,17 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watchAll"
+    "test": "jest --watchAll --verbose"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "compression": "^1.7.4",
     "config": "^3.3.9",
     "express": "^4.16.2",
     "express-async-errors": "^3.1.1",
     "fawn": "^2.1.5",
+    "helmet": "^3.11.0",
     "joi": "^13.1.0",
     "joi-objectid": "^4.0.2",
     "jsonwebtoken": "^9.0.0",
@@ -24,6 +26,7 @@
     "winston-mongodb": "3.0.0"
   },
   "devDependencies": {
-    "jest": "^29.5.0"
+    "jest": "^29.5.0",
+    "supertest": "^3.0.0"
   }
 }

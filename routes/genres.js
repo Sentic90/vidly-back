@@ -1,20 +1,15 @@
-const asyncMiddleware = require("../middleware/async");
+// const asyncMiddleware = require("../middleware/async");
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
+const validateObjectId = require("../middleware/validateObjectId");
 const express = require("express");
 const { Genre, validate } = require("../models/genre");
 const router = express.Router();
 
-// npm i express-async-errors 2.1.0
-// npm i winston-mongodb@3.0.0
-// list genres
-router.get(
-  "/",
-  asyncMiddleware(async (req, res) => {
-    const genres = await Genre.find().sort("name");
-    res.send(genres);
-  })
-);
+router.get("/", async (req, res) => {
+  const genres = await Genre.find().sort("name");
+  res.send(genres);
+});
 
 // Create new Genre
 router.post("/", auth, async (req, res) => {
@@ -30,15 +25,11 @@ router.post("/", auth, async (req, res) => {
 });
 
 // get a single genre
-router.get("/:id", async (req, res) => {
-  try {
-    const genre = await Genre.findById(req.params.id);
-    if (!genre)
-      return res.status(404).send("The genre with given ID was not found.");
-    res.send(genre);
-  } catch (ex) {
-    res.send(ex.message);
-  }
+router.get("/:id", validateObjectId, async (req, res) => {
+  const genre = await Genre.findById(req.params.id);
+  if (!genre)
+    return res.status(404).send("The genre with given ID was not found.");
+  res.send(genre);
 });
 
 // update a genre

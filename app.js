@@ -10,10 +10,9 @@ const userInstance = {
 };
 const user = new User({ isAdmin: true });
 // console.log(user._doc);
-const token = user.generateAuthToken();
-console.log(token);
-
-const payload = jwt.verify(token, config.get("jwtPrivateKey"));
+let token = jwt.sign({ _id: "1234" }, "1234");
+token += "1";
+const payload = jwt.verify(token, "1234");
 console.log(payload);
 // const mongoose = require("mongoose");
 // const id = mongoose.Types.ObjectId();

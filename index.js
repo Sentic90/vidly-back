@@ -1,3 +1,4 @@
+const winstone = require("winston");
 const express = require("express");
 const app = express();
 
@@ -10,9 +11,8 @@ require("./startup/validation")();
 // Getting Port from ENV
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => {
-  console.log(`Listening on port ${port}....`);
-  // winstone.info(`Listening on port ${port}....`);
+const server = app.listen(port, () => {
+  winstone.info(`Listening on port ${port}....`);
 });
 
-throw new Error("somethong fail..!");
+module.exports = server;
