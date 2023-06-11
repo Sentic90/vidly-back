@@ -1,6 +1,7 @@
 const request = require("supertest");
 const { User } = require("../../models/user");
 const { Genre } = require("../../models/genre");
+const mongoose = require("mongoose");
 let server;
 
 describe("/api/genres", () => {
@@ -33,8 +34,13 @@ describe("/api/genres", () => {
       expect(res.body).toHaveProperty("name", genre.name);
     });
 
-    it("should return 404 if Invalid ID or not found", async () => {
+    it("should return 404 if Invalid genre Id.", async () => {
       const res = await request(server).get(`/api/genres/1`);
+      expect(res.status).toBe(404);
+    });
+    it("should return 404 if valid ID but not found", async () => {
+      const id = mongoose.Types.ObjectId();
+      const res = await request(server).get(`/api/genres/${id}`);
       expect(res.status).toBe(404);
     });
   });
@@ -90,6 +96,56 @@ describe("/api/genres", () => {
 
       expect(res.body).toHaveProperty("name", "genre1");
       expect(res.body).toHaveProperty("_id");
+    });
+  });
+
+  describe("PUT /", () => {
+    let name;
+    let token;
+    let genre;
+    let id;
+
+    beforeEach(async () => {
+      token = new User().generateAuthToken();
+      name = "genre1";
+      genre = new Genre({ name: name });
+      id = genre._id;
+      await genre.save();
+    });
+
+    const exec = () => {
+      return request(server)
+        .put(`/api/genres/${id}`)
+        .set("x-auth-token", token)
+        .send({ name });
+    };
+
+    it("should return status 200 if valid genre updated successfully ", async () => {
+      name = "updated genre";
+      const res = await exec();
+
+      expect(res.status).toBe(200);
+    });
+
+    it("should return status 400 if genre name less than 5 chars.", async () => {
+      name = "a";
+      const res = await exec();
+
+      expect(res.status).toBe(400);
+    });
+
+    it("should return status 400 if genre more than 50 chars.", async () => {
+      name = new Array(52).join("a");
+      const res = await exec();
+
+      expect(res.status).toBe(400);
+    });
+
+    it("should return status 404 if genre Id not found.", async () => {
+      id = mongoose.Types.ObjectId();
+      const res = await exec();
+
+      expect(res.status).toBe(404);
     });
   });
 });

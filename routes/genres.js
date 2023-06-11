@@ -55,7 +55,7 @@ router.put("/:id", auth, async (req, res) => {
 });
 
 // Delete genre for admin Only
-router.delete("/:id", [auth, admin], async (req, res) => {
+router.delete("/:id", [validateObjectId, auth, admin], async (req, res) => {
   const genre = await Genre.findByIdAndRemove(req.params.id);
   if (!genre)
     return res.status(404).send("The genre with given ID was not found.");
