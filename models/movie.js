@@ -5,7 +5,7 @@ const { genreSchema } = require("./genre");
 const movieSchema = mongoose.Schema({
   title: {
     type: String,
-    minlength: 3,
+    minlength: 5,
     required: true,
   },
   dailyRentalRate: {
@@ -31,7 +31,7 @@ const Movie = mongoose.model("Movie", movieSchema);
 function validateMovie(movie) {
   // Joi Schema how your input should looks like
   const schema = {
-    title: Joi.string().min(3).required(),
+    title: Joi.string().min(5).required(),
     dailyRentalRate: Joi.number(),
     numberInStock: Joi.number().min(1),
     genreId: Joi.objectId().required(),

@@ -9,25 +9,13 @@ const router = express.Router();
 
 // Initialize fawn
 Fawn.init(mongoose);
-// list rentals
+
 router.get("/", async (req, res) => {
-  try {
-    // get all rentals
-    const rentals = await Rental.find();
-    res.send(rentals);
-  } catch (ex) {
-    res.send("Opps! Could not fetch rentals from DB.").status(500);
-  }
+  const rentals = await Rental.find();
+  res.send(rentals);
 });
 
-// Create new Rental
 router.post("/", auth, async (req, res) => {
-  // check customerId
-  // const customerId = mongoose.Types.ObjectId.isValid(req.body.customerId);
-  // if (!customerId) {
-  //   return res.status(400).send("Invalid customer ID.");
-  // }
-
   // Joi validation
   const { error } = validate(req.body);
 
@@ -39,12 +27,6 @@ router.post("/", auth, async (req, res) => {
   const customer = await Customer.findById(req.body.customerId);
   if (!customer)
     return res.status(404).send("Sorry! customer with given ID was not found.");
-
-  // check movieId
-  // const movieId = mongoose.Types.ObjectId.isValid(req.body.movieId);
-  // if (!movieId) {
-  //   return res.status(400).send("Invalid movie ID.");
-  // }
 
   // Check movie exists ?
   const movie = await Movie.findById(req.body.movieId);
@@ -66,7 +48,6 @@ router.post("/", auth, async (req, res) => {
       title: movie.title,
       dailyRentalRate: movie.dailyRentalRate,
     },
-    rentalFee: movie.dailyRentalRate * 10,
   });
 
   // Two phase commit --> a transaction

@@ -2,6 +2,13 @@
 
 ## /api/me get the current user
 
+## Test Genre
+
+    GET /
+    POST
+    PUT
+        -
+
 ## Integration Test
 
     - config database file and set environment variables.
