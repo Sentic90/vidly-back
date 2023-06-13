@@ -21,6 +21,7 @@
     "joi-objectid": "^4.0.2",
     "jsonwebtoken": "^9.0.0",
     "lodash": "^4.17.21",
+    "moment": "^2.29.4",
     "mongoose": "^5.0.2",
     "winston": "2.4.0",
     "winston-mongodb": "3.0.0"

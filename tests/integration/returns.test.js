@@ -1,6 +1,7 @@
 const request = require("supertest");
 const { Rental } = require("../../models/rental");
 const mongoose = require("mongoose");
+const moment = require("moment");
 const { User } = require("../../models/user");
 const { Movie } = require("../../models/movie");
 
@@ -107,20 +108,40 @@ describe("/api/returns ", () => {
     expect(diff).toBeLessThan(10 * 1000);
   });
 
-  it("should calculate the the rentalFee .", async () => {
-    (rental.dateOut = new Date("2023", "5", "5")), await rental.save();
-    const res = await exec();
+  it("should set the rentalFee if input is valid", async () => {
+    rental.dateOut = moment().add(-7, "days").toDate();
+    await rental.save();
+
+    await exec();
     const rentalInDb = await Rental.findById(rental._id);
 
-    const diff = rentalInDb.dateReturned - rentalInDb.dateOut;
-    const rentalFee =
-      Math.round(diff / 1000 / 60 / 60 / 24) * rental.movie.dailyRentalRate;
-    expect(res.body.rentalFee).toBe(rentalFee);
+    expect(rentalInDb.rentalFee).toBe(14);
   });
+
   it("should increase the stock of returned movie.", async () => {
     await exec();
     const movieInDb = await Movie.findById(movieId);
 
     expect(movieInDb.numberInStock).toBe(movie.numberInStock + 1);
+  });
+
+  it("should return rental object in body of request.", async () => {
+    const rentalInDb = await Rental.findById(rental._id);
+    const res = await exec();
+
+    expect(res.status).toBe(200);
+    // expect(res.body).toMatchObject(rentalInDb);
+    expect(res.body).toHaveProperty("_id");
+    // Proper way
+    expect(Object.keys(res.body)).toEqual(
+      expect.arrayContaining([
+        "_id",
+        "dateOut",
+        "dateReturned",
+        "rentalFee",
+        "movie",
+        "customer",
+      ])
+    );
   });
 });

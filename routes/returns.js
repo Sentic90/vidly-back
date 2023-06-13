@@ -1,31 +1,23 @@
-const { validate, Rental } = require("../models/rental");
+const { Rental } = require("../models/rental");
+const validate = require("../middleware/validate");
+const Joi = require("joi");
 const auth = require("../middleware/auth");
 const express = require("express");
 const { Movie } = require("../models/movie");
+const Fawn = require("fawn/lib/fawn");
 const router = express.Router();
 
-router.post("/", auth, async (req, res) => {
-  if (!req.body.customerId)
-    return res.status(400).send("customerId not provided.");
-
-  if (!req.body.movieId) return res.status(400).send("movieId not provided.");
-
+router.post("/", [auth, validate(validateReturn)], async (req, res) => {
   const { customerId, movieId } = req.body;
-  const rental = await Rental.findOne({
-    "customer._id": customerId,
-    "movie._id": movieId,
-  });
+  const rental = await Rental.lookup(customerId, movieId);
   if (!rental) return res.status(404).send("not-found");
 
   if (rental.dateReturned)
     return res.status(400).send("Rental already proccessed.");
 
-  rental.dateReturned = new Date();
-
   // Calculate RentalFee
-  let daysOut = rental.dateReturned - rental.dateOut;
-  daysOut = Math.round(daysOut / 1000 / 60 / 60 / 24);
-  rental.rentalFee = daysOut * rental.movie.dailyRentalRate;
+
+  rental.return();
   await rental.save();
 
   // + number in Stock
@@ -35,7 +27,17 @@ router.post("/", auth, async (req, res) => {
     },
   });
 
-  return res.status(200).send(rental);
+  return res.send(rental);
 });
+
+function validateReturn(rental) {
+  // Joi Schema how your input should looks like
+  const schema = {
+    customerId: Joi.objectId().required(),
+    movieId: Joi.objectId().required(),
+  };
+
+  return Joi.validate(rental, schema);
+}
 
 module.exports = router;
