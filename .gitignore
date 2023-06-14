@@ -2,4 +2,8 @@ node_modules/
 coverage/
 
 # Logging files 
-*.log
+lofile.log
+
+# playground files
+app.js
+zCredentials.js

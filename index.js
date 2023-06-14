@@ -7,6 +7,7 @@ require("./startup/db")();
 require("./startup/logging")();
 require("./startup/config")();
 require("./startup/validation")();
+require("./startup/prod")();
 
 // Getting Port from ENV
 const port = process.env.PORT || 3000;
