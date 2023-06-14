@@ -38,3 +38,22 @@
 {"level":"info","message":"Connected to mongodb://localhost/vidly...","timestamp":"2023-06-14T05:55:56.292Z"}
 {"level":"info","message":"Listening on port 3000....","timestamp":"2023-06-14T05:59:58.246Z"}
 {"level":"info","message":"Connected to mongodb://localhost/vidly...","timestamp":"2023-06-14T05:59:58.313Z"}
+{"level":"info","message":"Listening on port 3000....","timestamp":"2023-06-14T06:16:09.628Z"}
+{"level":"info","message":"Connected to mongodb+srv://sentic:KMYMSaNBwSUXNyZj@cluster0.2rfyy8b.mongodb.net/vidly...","timestamp":"2023-06-14T06:16:11.418Z"}
+{"level":"info","message":"Listening on port 3000....","timestamp":"2023-06-14T06:38:38.388Z"}
+{"level":"info","message":"Listening on port 3000....","timestamp":"2023-06-14T06:38:52.738Z"}
+{"level":"info","message":"Connected to mongodb+srv://sentic:KMYMSaNBwSUXNyZj@cluster0.2rfyy8b.mongodb.net/vidly...","timestamp":"2023-06-14T06:39:17.346Z"}
+{"level":"info","message":"Listening on port 3000....","timestamp":"2023-06-14T06:39:45.218Z"}
+{"level":"info","message":"Listening on port 3000....","timestamp":"2023-06-14T06:40:52.439Z"}
+{"level":"info","message":"Connected to mongodb://localhost/vidly...","timestamp":"2023-06-14T06:40:52.501Z"}
+{"level":"info","message":"Listening on port 3000....","timestamp":"2023-06-14T06:52:00.126Z"}
+{"level":"info","message":"Connected to mongodb://localhost/vidly...","timestamp":"2023-06-14T06:52:00.204Z"}
+{"level":"info","message":"Listening on port 3000....","timestamp":"2023-06-14T06:52:16.819Z"}
+{"level":"info","message":"Connected to mongodb://localhost/vidly...","timestamp":"2023-06-14T06:52:16.898Z"}
+{"level":"info","message":"Listening on port 3000....","timestamp":"2023-06-14T07:10:17.185Z"}
+{"level":"info","message":"Connected to mongodb://localhost/vidly...","timestamp":"2023-06-14T07:10:17.257Z"}
+{"level":"info","message":"Listening on port 3000....","timestamp":"2023-06-14T07:10:35.778Z"}
+{"level":"info","message":"Connected to mongodb://localhost/vidly...","timestamp":"2023-06-14T07:10:35.851Z"}
+{"message":"Unexpected token f in JSON at position 104","stack":"SyntaxError: Unexpected token f in JSON at position 104\n    at JSON.parse (<anonymous>)\n    at parse (/home/sentic/projects/nodejs/vidly/node_modules/body-parser/lib/types/json.js:89:19)\n    at /home/sentic/projects/nodejs/vidly/node_modules/body-parser/lib/read.js:128:18\n    at AsyncResource.runInAsyncScope (async_hooks.js:197:9)\n    at invokeCallback (/home/sentic/projects/nodejs/vidly/node_modules/raw-body/index.js:231:16)\n    at done (/home/sentic/projects/nodejs/vidly/node_modules/raw-body/index.js:220:7)\n    at IncomingMessage.onEnd (/home/sentic/projects/nodejs/vidly/node_modules/raw-body/index.js:280:7)\n    at IncomingMessage.emit (events.js:412:35)\n    at endReadableNT (internal/streams/readable.js:1333:12)\n    at processTicksAndRejections (internal/process/task_queues.js:82:21)","expose":true,"statusCode":400,"status":400,"body":"{\r\n  \"title\":\"The last of us\",\r\n  \"dailyRentalRate\":2.5,\r\n  \"numberInStock\":10,\r\n  \"genreId\":64896268013fbe356bbb6843\r\n}","type":"entity.parse.failed","level":"error","timestamp":"2023-06-14T07:14:27.057Z"}
+{"level":"info","message":"Listening on port 3000....","timestamp":"2023-06-14T07:17:23.917Z"}
+{"level":"info","message":"Connected to mongodb://localhost/vidly...","timestamp":"2023-06-14T07:17:24.117Z"}
