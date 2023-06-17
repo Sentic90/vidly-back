@@ -7,11 +7,13 @@ const users = require("../routes/users");
 const auth = require("../routes/auth");
 const home = require("../routes/home");
 const error = require("../middleware/error");
+const cors = require("cors")
 const express = require("express");
 
 // middleware Routes
 module.exports = function (app) {
   // middleware of JSON
+  app.use(cors());
   app.use(express.json());
   app.use("", home);
   app.use("/api/users", users);
