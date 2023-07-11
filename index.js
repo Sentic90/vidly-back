@@ -15,5 +15,5 @@ const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
   winstone.info(`Listening on port ${port}....`);
 });
-
+module.exports = app;
 module.exports = server;
